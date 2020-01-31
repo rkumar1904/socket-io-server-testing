@@ -9,15 +9,6 @@ app.use(index);
 const server = http.createServer(app);
 const io = socketIo(server); // < Interesting!
 
-// io.on("connection", socket => {
-//   console.log("New client connected"), setInterval(
-//     () => getApiAndEmit(socket),
-//     10000
-//   );
-//   socket.on("disconnect", () => console.log("Client disconnected"));
-// });
-
-
 let interval;
 io.on("connection", socket => {
   console.log("New client connected");
@@ -34,8 +25,9 @@ server.listen(port, () => console.log(`Listening on port ${port}`));
 
 const getApiAndEmit = async socket => {
   try {
+    //update the bellow code for get weather forcast
     const res = await axios.get(
-      "https://api.darksky.net/forecast/bcb7f6baa952b99663d1996d8bfabff2/43.7695,11.2558"
+      "https://api.darksky.net/forecast/<your key>/<log/Lat>"
     ); // Getting the data from DarkSky
     const values = [
       {
@@ -109,6 +101,6 @@ const getApiAndEmit = async socket => {
     ];
     socket.emit("FromAPI", values); // Emitting a new message. It will be consumed by the client
   } catch (error) {
-    console.error(`Error: ${error}`);
+    console.warn(`Error: ${error}`);
   }
 };
