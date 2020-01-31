@@ -77,7 +77,7 @@ const getApiAndEmit = async socket => {
       {
         id: '000000007',
         avatar: 'https://gw.alipayobjects.com/zos/rmsportal/fcHMVNCjPOsbUGdEduuv.jpeg',
-        title: '朱偏右 回复了你',
+        title: 'event pic need to be update',
         description: 'kindly update upcoming event pic',
         datetime: '2020-08-07',
         type: 'Upcoming',
