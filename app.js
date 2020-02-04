@@ -26,9 +26,9 @@ server.listen(port, () => console.log(`Listening on port ${port}`));
 const getApiAndEmit = async socket => {
   try {
     //update the bellow code for get weather forcast
-    const res = await axios.get(
-      "https://api.darksky.net/forecast/<your key>/<log/Lat>"
-    ); // Getting the data from DarkSky
+    // const res = await axios.get(
+    //   "https://api.darksky.net/forecast/<your key>/<log/Lat>"
+    // ); // Getting the data from DarkSky
     const values = [
       {
         id: '000000001',
@@ -77,7 +77,7 @@ const getApiAndEmit = async socket => {
       {
         id: '000000007',
         avatar: 'https://gw.alipayobjects.com/zos/rmsportal/fcHMVNCjPOsbUGdEduuv.jpeg',
-        title: 'event pic need to be update',
+        title: '朱偏右 回复了你',
         description: 'kindly update upcoming event pic',
         datetime: '2020-08-07',
         type: 'Upcoming',
