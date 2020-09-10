@@ -15,7 +15,7 @@ io.on("connection", socket => {
   if (interval) {
     clearInterval(interval);
   }
-  interval = setInterval(() => getApiAndEmit(socket), 10000);
+  interval = setInterval(() => getApiAndEmit(socket), 5000);
   socket.on("disconnect", () => {
     console.log("Client disconnected");
   });
@@ -33,7 +33,14 @@ const getApiAndEmit = async socket => {
       {
         id: '000000001',
         avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png',
-        title: 'Today is the notice day',
+        title: 'Today is the rahul day',
+        // datetime: '2020-08-09',
+        type: 'Notice',
+      },
+      {
+        id: '00000000102',
+        avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png',
+        title: 'Today is neil day',
         // datetime: '2020-08-09',
         type: 'Notice',
       },
@@ -73,14 +80,6 @@ const getApiAndEmit = async socket => {
         description: 'the comming monday is gonging to be closed ⏳',
         datetime: '2020-08-07',
         type: 'Notice',
-      },
-      {
-        id: '000000007',
-        avatar: 'https://gw.alipayobjects.com/zos/rmsportal/fcHMVNCjPOsbUGdEduuv.jpeg',
-        title: '朱偏右 回复了你',
-        description: 'kindly update upcoming event pic',
-        datetime: '2020-08-07',
-        type: 'Upcoming',
       },
       {
         id: '000000008',
