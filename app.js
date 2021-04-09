@@ -10,15 +10,63 @@ const server = http.createServer(app);
 const io = socketIo(server); // < Interesting!
 
 let interval;
+
+let activeSockets = [];
 io.on("connection", socket => {
-  console.log("New client connected");
-  if (interval) {
-    clearInterval(interval);
+  //  Existing code
+  // console.log("New client connected");
+  // if (interval) {
+  //   clearInterval(interval);
+  // }
+  // interval = setInterval(() => getApiAndEmit(socket), 5000);
+  // socket.on("disconnect", () => {
+  //   console.log("Client disconnected");
+  // });
+
+  // ------- new code
+
+  const existingSocket = activeSockets.find(
+    existingSocket => existingSocket === socket.id
+  );
+
+  if (!existingSocket) {
+    activeSockets.push(socket.id);
+
+    socket.emit("update-user-list", {
+      users: activeSockets.filter(
+        existingSocket => existingSocket !== socket.id
+      )
+    });
+
+    socket.broadcast.emit("update-user-list", {
+      users: [socket.id]
+    });
   }
-  interval = setInterval(() => getApiAndEmit(socket), 5000);
-  socket.on("disconnect", () => {
-    console.log("Client disconnected");
+
+  socket.on("call-user", data => {
+    socket.to(data.to).emit("call-made", {
+      offer: data.offer,
+      socket: socket.id
+    });
   });
+
+  socket.on("make-answer", data => {
+    socket.to(data.to).emit("answer-made", {
+      socket: socket.id,
+      answer: data.answer
+    });
+  });
+
+  socket.on("disconnect", () => {
+    activeSockets = activeSockets.filter(
+      existingSocket => existingSocket !== socket.id
+    );
+    socket.broadcast.emit("remove-user", {
+      socketId: socket.id
+    });
+  });
+
+
 });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
